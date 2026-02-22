@@ -10,11 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Print Message
+      - name: Print message
         run: echo "CI Pipeline Running Successfully 🚀"
 
-      - name: List Files
-        run: ls -la
+      - name: List files
+        run: ls
+
+      - name: Send Slack Notification
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"✅ GitHub Actions Build Successful for devops-webapp 🚀"}' \
+          ${{ secrets.SLACK_WEBHOOK }}
